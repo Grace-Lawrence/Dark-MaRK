@@ -22,8 +22,12 @@ with open('README.rst', 'r') as f:
 with open('requirements.txt', 'r') as f:
     requirements = f.read().splitlines()
 
+# Get the extra requirements list
+with open('requirements_extras.txt', 'r') as f:
+    requirements_extras = f.read().splitlines()
+
 # Read the __version__.py file
-with open('/__version__.py', 'r') as f:
+with open('darkmark/__version__.py', 'r') as f:
     vf = f.read()
 
 # Obtain version from read-in __version__.py file
@@ -44,8 +48,9 @@ setup(name="darkmark",
       keywords=(""),
       python_requires='>=3.6, <4',
       packages=find_packages(),
-      package_dir={'darkmark', 'darkmark'},
+      package_dir={'darkmark': 'darkmark'},
       include_package_data=True,
       install_requires=requirements,
+      extras_require={'extras': requirements_extras},
       zip_safe=False,
       )
