@@ -20,7 +20,7 @@ from astropy.coordinates import galactocentric_frame_defaults
 galactocentric_frame_defaults.set('pre-v4.0')
 
 
-__all__ = ["def_samp_coord", "calc_real_uE_pE", "sample_dm_solcirc", "vdf_load_plot"]
+__all__ = ["def_samp_coord", "calc_real_uE_pE", "sample_dm_solcirc"]
 
 def def_samp_coord(target, n_samples):
     """
@@ -41,6 +41,7 @@ def def_samp_coord(target, n_samples):
         The corresponding angle around the solar circle for each of the samples.
 
     """
+    n_samples = n_samples+1
     # Define the co-ordinates of the sun
     sx, sy, sz, r = [0, 0, 0.027, 8.3] * u.kpc
     theta_ang = np.linspace(0., 2.*np.pi, n_samples) * u.radian
@@ -123,6 +124,7 @@ def Earth_peculiar_motion(nib):
                                                representation_type = 'cartesian', 
                                                differential_type = 'cartesian')
     earth_galacto = earth_bary.transform_to(coord.Galactocentric())
+    print(f' Testing the concept; {earth_galacto.v_x}')
     return earth_galacto
 
 
@@ -163,8 +165,6 @@ def sample_dm_solcirc(nib,sample_coords, target, theta_ang, galaxy,results_path,
     earth_galacto = Earth_peculiar_motion(nib)
     earth_speed = np.sqrt((earth_galacto.v_x.value)**2+(earth_galacto.v_y.value)**2+(earth_galacto.v_z.value)**2)
     for j in range(0, len(sample_coords)):
-        if not os.path.exists(results_path+'/Sample_'+str(j+1)):
-            os.makedirs(results_path+'/Sample_'+str(j+1))
         solar_sphere=s[pn.filt.Sphere(radius= 1.,
                                       cen=tuple(sample_coords[j, :].value))] #take spherical samples at the specified coordinates around the solar circle.
         print(f'SAMPLE {j+1}')
@@ -182,55 +182,27 @@ def sample_dm_solcirc(nib,sample_coords, target, theta_ang, galaxy,results_path,
         #Transform velocities from Galactocentric -> Geo
         speed_galacto, geo_array, speed_geo_avg = simtohel(nib,tmp_pos_dm,tmp_vel_dm,'milkyway', results_path, j+1, earth_galacto)
             
-        if find_boost == 'True':
-            if j == 0:
-                total_particle_sample_x = geo_array[0,:,:]
-                total_particle_sample_y = geo_array[1,:,:]
-                total_particle_sample_z = geo_array[2,:,:]
-            else: 
-                total_particle_sample_x = np.hstack((total_particle_sample_x,geo_array[0,:]))
-                total_particle_sample_y = np.hstack((total_particle_sample_y,geo_array[1,:]))
-                total_particle_sample_z = np.hstack((total_particle_sample_z,geo_array[2,:]))
+    #     if find_boost == 'True':
+    #         if j == 0:
+    #             total_particle_sample_x = geo_array[0,:,:]
+    #             total_particle_sample_y = geo_array[1,:,:]
+    #             total_particle_sample_z = geo_array[2,:,:]
+    #         else: 
+    #             total_particle_sample_x = np.hstack((total_particle_sample_x,geo_array[0,:]))
+    #             total_particle_sample_y = np.hstack((total_particle_sample_y,geo_array[1,:]))
+    #             total_particle_sample_z = np.hstack((total_particle_sample_z,geo_array[2,:]))
 
-    #test_simtohel() 
-    if find_boost == 'True' :
-        total_particle_sample_x_avg = np.sum(total_particle_sample_x, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_x, axis=1)
-        total_particle_sample_y_avg = np.sum(total_particle_sample_y, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_y,axis=1)
-        total_particle_sample_z_avg = np.sum(total_particle_sample_z, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_z,axis=1)
-        X Boost = np.mean((total_particle_sample_x_avg-earth_galacto.v_x.value))
-        Y Boost = np.mean(total_particle_sample_y_avg-earth_galacto.v_y.value)
-        Z Boost = np.mean(total_particle_sample_z_avg-earth_galacto.v_z.value)
+    # #test_simtohel() 
+    # if find_boost == 'True' :
+    #     total_particle_sample_x_avg = np.sum(total_particle_sample_x, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_x, axis=1)
+    #     total_particle_sample_y_avg = np.sum(total_particle_sample_y, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_y,axis=1)
+    #     total_particle_sample_z_avg = np.sum(total_particle_sample_z, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_z,axis=1)
+    #     X_Boost = np.mean((total_particle_sample_x_avg-earth_galacto.v_x.value))
+    #     Y_Boost = np.mean(total_particle_sample_y_avg-earth_galacto.v_y.value)
+    #     Z_Boost = np.mean(total_particle_sample_z_avg-earth_galacto.v_z.value)
         
 
 
     
     return speed_galacto, geo_array
 
-def vdf_load_plot(maximum_day,results_path, samp_num):
-    plt.clf()
-    fig, axs = plt.subplots(4, 2, figsize=(20, 30), sharex=True, sharey=True,tight_layout=True)
-    n_bins = 100
-    axes = np.array(([0,0], [0,1], [1,0], [1,1], [2,0], [2,1], [3,0], [3,1]))
-    for sample in range(0, samp_num-1): 
-        i = axes[sample][0]
-        j = axes[sample][1]
-        print(i,j)
-        galacto_vel_samp1 = np.load(str(results_path)+'/Sample_'+str(sample+1)+'/galactocentric_vel.npy')
-        galacto_vel_1samp = np.sqrt(galacto_vel_samp1[0]**2.+galacto_vel_samp1[1]**2.+galacto_vel_samp1[2]**2.)
-
-        # helio_vel_samp1 = np.load(str(results_path)+'/Sample_'+str(sample+1)+'/barycentric_vel.npy')
-        # helio_vel_1samp = np.sqrt(helio_vel_samp1[0]**2.+helio_vel_samp1[1]**2.+helio_vel_samp1[2]**2.)
-    
-        geo_vel_samp1 = np.load(str(results_path)+'/Sample_'+str(sample+1)+'/geocentric_vel.npy')
-        geo_vel_1samp = geo_vel_samp1[:,196,:]
-        geo_vel_1samp = np.sqrt(geo_vel_1samp[0]**2.+geo_vel_1samp[1]**2.+geo_vel_1samp[2]**2.)
-        
-        axs[i,j].hist(geo_vel_1samp, bins=n_bins,color='grey',density=True, label = 'Geo')
-        # axs[i,j].hist(helio_vel_1samp, bins=n_bins,histtype=u'step',linewidth=2,color='red',density=True, label = 'Bary')
-        axs[i,j].hist(galacto_vel_1samp, bins=n_bins,histtype=u'step',linewidth=2,color='black',density=True, label = 'Galacto')
-
-        axs[i,j].set_title("Sample"+str(sample+1))
-
-    axs[0,1].legend(fontsize=25)
-    plt.show()
-    return 1

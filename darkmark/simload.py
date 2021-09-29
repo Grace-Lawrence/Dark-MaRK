@@ -15,6 +15,7 @@ except ImportError:
 import numpy as np
 import astropy.units as u
 import pynbody as pn
+import os
 import matplotlib.pyplot as plt
 
 __all__ = ["import_sim", "apply_x_inversion", "apply_centre", "apply_smth", 
@@ -89,6 +90,7 @@ def apply_centre(target, **v_cen):
     None.
 
     """
+    v_cen = np.array([-154.47322, 160.85855, 106.82710])
     # Set FaceOn and Center
     pn.analysis.angmom.faceon(target, cen_size='1 kpc', disk_size='50 kpc', 
                               move_all=True, vcen=(v_cen[0],v_cen[1], v_cen[2]))
@@ -137,7 +139,7 @@ def apply_smth(latte, s, target):
     return target, s
 
 
-def visualize_dm(target):
+def visualize_dm(target,results_path):
     """
     Create Face-On Image of the Dark Matter Component
 
@@ -145,6 +147,8 @@ def visualize_dm(target):
     ----------
     target : Data
         Smoothed simulation instance with Softening lengthscale eps applied.
+    results_path : String
+        The file path to the location where results will be outputted.
 
     Returns
     -------
@@ -153,11 +157,11 @@ def visualize_dm(target):
     """
     pn.plot.image(target.dm, width='60 kpc', cmap=plt.cm.Greys,
                       resolution=2500, units='Msol kpc^-2', qtytitle=r'$\Sigma$')
-    plt.show()
-    plt.clf()
+    
+    plt.savefig(results_path+'DarkMaRK_results/DM_visualization.pdf')
 
 
-def visualize_gas(target):
+def visualize_gas(target,results_path):
     """
     Create Face-On Image of the Gas Components
 
@@ -165,16 +169,19 @@ def visualize_gas(target):
     ----------
     target : Data
         Smoothed simulation instance with Softening lengthscale eps applied.
+    results_path : String
+        The file path to the location where results will be outputted.
 
     Returns
     -------
     None.
 
     """
+
     pn.plot.image(target.g, width='60 kpc', cmap=plt.cm.Oranges,
-                      resolution=2500, units='Msol kpc^-2', qtytitle=r'$\Sigma$')
-    plt.show()
-    plt.clf()
+                      resolution=2500, units='Msol kpc^-3', qtytitle=r'$\Sigma$')
+    plt.savefig(results_path+'DarkMaRK_results/Gas_visualization.pdf')
+
 
 
 def set_cosmology(s, cosmology):
@@ -204,8 +211,8 @@ def set_cosmology(s, cosmology):
         Critical density of the galaxy.
 
     """
-    if not import_commah:
-        raise ImportError("commah package unavailable. Please install with 'pip install darkmark[extras]'")
+    # if not import_commah:
+    #     raise ImportError("commah package unavailable. Please install with 'pip install darkmark[extras]'")
     output = commah.run('cosmology', zi=0., Mi=8.34e12, z=[0.0])
     concentration = output['c']
     rho_crit = cosmology.rho_crit(s, z=0., unit=(pn.units.Msol/(pn.units.h*pn.units.Mpc**3)))
@@ -215,7 +222,7 @@ def set_cosmology(s, cosmology):
     return concentration, rho_crit
 
 
-def load_sim_profile(latte, file_path, visualize, invert_rot, cosmology = 'WMAP1'):
+def load_sim_profile(latte, file_path, visualize, invert_rot, results_path,  cosmology = 'WMAP1'):
     """
     Load the simulation and apply centering and smooething to it
 
@@ -234,6 +241,8 @@ def load_sim_profile(latte, file_path, visualize, invert_rot, cosmology = 'WMAP1
     invert_rot : Boolean
         Whether or not to invert the galaxt along the x-axis to make it 'rotate'
         in the opposite direction.
+    results_path : String
+        The file path to the location where results will be outputted.
     cosmology : String, optional
         The default is 'WMAP1'.
 
@@ -249,14 +258,16 @@ def load_sim_profile(latte, file_path, visualize, invert_rot, cosmology = 'WMAP1
         Another simulation instance with original mass data type.
 
     """
-    target, s = import_sim(latte, file_path)
+    target, s = import_sim(file_path)
     target, s = apply_smth(latte, s, target)
     apply_centre(target)
     if invert_rot == True: #reverse the direction of rotation of the galaxy
         apply_x_inversion(target)
-    concentration, rho_crit = set_cosmology(s, cosmology)
+    # concentration, rho_crit = set_cosmology(s, cosmology)
     if visualize:
-        visualize_dm(target)
-        visualize_gas(target)
-    return concentration, rho_crit, target, s
+        if not os.path.exists(results_path+'DarkMaRK_results/'):
+            os.makedirs(results_path+'DarkMaRK_results/')
+        visualize_dm(target,results_path)
+        # visualize_gas(target,results_path)
+    return target, s
 
