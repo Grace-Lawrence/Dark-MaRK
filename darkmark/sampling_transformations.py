@@ -111,7 +111,7 @@ def Earth_peculiar_motion(nib):
     Returns
     -------
     earth_galacto : Astropy.coord Object
-        Contains the Earth's peculiar motion through the galaxy'
+        Contains the Earth's peculiar motion through the galaxy
 
     """
     p_E_x, u_E_x = calc_real_uE_pE(nib._vdf.calc_day,'x') 
