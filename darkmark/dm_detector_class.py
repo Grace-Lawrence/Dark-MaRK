@@ -104,15 +104,15 @@ def day_to_date(n_day, year = 2019):
 
     Parameters
     ----------
-    n_day : TYPE
-        DESCRIPTION.
-    year : TYPE, optional
-        DESCRIPTION. The default is 2019.
+    n_day : Int or Float
+        Nth day of the year, to be converted to a date.
+    year : Integer, optional
+        The year to convert within. The default is 2019.
 
     Returns
     -------
-    nday_date : TYPE
-        DESCRIPTION.
+    nday_date : datetime
+        The date corresponding to the day and year inputted in the format dd/mm/yyyy.
 
     """
     dt = datetime.datetime(year,1,1) #Sets day 0 as January 1st 2019

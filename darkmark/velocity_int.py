@@ -17,7 +17,7 @@ __all__ = [ "annual_mod", "find_amplitude"]
 
 def Qf_Ge(nib,e_val):
     """
-    Returns Quenching Factor Values for Germanium
+    Returns Quenching Factor Values for Germanium.
 
     Parameters
     ----------
