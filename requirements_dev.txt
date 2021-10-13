@@ -1,2 +1,3 @@
+wget >=1.21.2
 -e .
 check-manifest
