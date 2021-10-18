@@ -7,7 +7,7 @@ You can install the latest development version of *Dark Mark* by cloning
 this repository::
     
     git clone https://github.com/Grace-Lawrence/Dark-MaRK.git
-    cd darkmark
+    cd Dark-MaRK/
     pip install .
 
 Certain functions use specific packages not outlined in requirements.txt. These can be installed use requirements_extras.txt.
