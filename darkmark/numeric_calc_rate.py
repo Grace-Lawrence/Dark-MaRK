@@ -9,7 +9,6 @@ import astropy.units as u
 import numpy as np
 import scipy.integrate as sci
 
-from darkmark.velocity_int import thint
 
 
 __all__ = ["spectral_func"]
