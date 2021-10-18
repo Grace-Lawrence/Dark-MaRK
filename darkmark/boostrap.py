@@ -82,6 +82,7 @@ def bootstrap_rate(nib, samp_num, results_path, boostrap, n_bootstraps=0, verbos
 
 
     """
+    
     if verbose:
         print(f'SAMPNUM: {samp_num}')    
         print(f'Detector \n Name: {nib._detector.name},\n Atomic Mass: {nib._detector.atomic_mass},\n Reduced Mass: {nib._detector.M_T }')

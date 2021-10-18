@@ -108,13 +108,13 @@ def save_velocity_info(galacto, geo, results_path, samp_num):
 
     """
     if not os.path.exists(str(results_path)+'Velocity_Results/Sample_'+str(samp_num)):
-        os.makedirs(str(results_path)+'Velocity_Results//Sample_'+str(samp_num))
+        os.makedirs(str(results_path)+'Velocity_Results/Sample_'+str(samp_num))
     #Save the Galactocentric distribution
     galacto_array = np.array([galacto.v_x,galacto.v_y,galacto.v_z])
-    np.save(os.path.join(results_path+'Velocity_Results/Sample_'+str(samp_num), 'galactocentric_vel'),
+    np.save(os.path.join(str(results_path)+'Velocity_Results/Sample_'+str(samp_num), 'galactocentric_vel'),
             galacto_array)
 
     #Save the Geocentric distribution
-    np.save(os.path.join(results_path+'Velocity_Results/Sample_'+str(samp_num), 'geocentric_vel'),
+    np.save(os.path.join(str(results_path)+'Velocity_Results/Sample_'+str(samp_num), 'geocentric_vel'),
             geo)
     return 1  
