@@ -10,7 +10,6 @@ from . import _globals
 from ._globals import *
 from . import annual_mod_fits
 from . import simload
-from . import profiles
 from . import framewrap
 from . import sampling_transformations
 from . import dm_detector_class
