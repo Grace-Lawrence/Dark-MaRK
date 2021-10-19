@@ -85,7 +85,14 @@ def simtohel(nib,pos, vel, galaxy, results_path, samp_num,earth_galacto):
 
     speed_galacto = np.sqrt((xyz.v_x.value)**2+(xyz.v_y.value)**2
                             +(xyz.v_z.value)**2)
-    save_velocity_info(xyz, speed_geo, results_path, samp_num)
+    #Save the Galactocentric distribution
+    galacto_array = np.array([xyz.v_x,xyz.v_y,xyz.v_z])
+    np.save(os.path.join(str(results_path)+'Velocity_Results/Sample_'+str(samp_num), 'galactocentric_vel'),
+            galacto_array)
+
+    #Save the Geocentric distribution
+    np.save(os.path.join(str(results_path)+'Velocity_Results/Sample_'+str(samp_num), 'geocentric_vel'),
+            speed_geo)
     
     return speed_galacto, speed_geo, average_speed_geo
 

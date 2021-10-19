@@ -165,6 +165,9 @@ def sample_dm_solcirc(nib,sample_coords, target, theta_ang, galaxy,results_path,
     earth_galacto = Earth_peculiar_motion(nib)
     earth_speed = np.sqrt((earth_galacto.v_x.value)**2+(earth_galacto.v_y.value)**2+(earth_galacto.v_z.value)**2)
     for j in range(0, len(sample_coords)):
+        if not os.path.exists(str(results_path)+'Velocity_Results/Sample_'+str(j+1)):
+            os.makedirs(str(results_path)+'Velocity_Results/Sample_'+str(j+1))
+        
         solar_sphere=s[pn.filt.Sphere(radius= 1.,
                                       cen=tuple(sample_coords[j, :].value))] #take spherical samples at the specified coordinates around the solar circle.
         print(f'SAMPLE {j+1}')
