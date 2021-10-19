@@ -96,8 +96,8 @@ def bootstrap_rate(nib, samp_num, results_path, boostrap, n_bootstraps=0, verbos
     for samp in range(1, samp_num+1):
         print(f'Sample {samp}')
         #Load the saved velocity distributions
-        geo_vel = np.load(str(results_path)+'Sample_'+str(samp)+'/geocentric_vel.npy')
-        galacto_vel = np.load(str(results_path)+'Sample_'+str(samp)+'/galactocentric_vel.npy')
+        geo_vel = np.load(str(results_path)+'Velocity_Results/Sample_'+str(samp)+'/geocentric_vel.npy')
+        galacto_vel = np.load(str(results_path)+'Velocity_Results/Sample_'+str(samp)+'/galactocentric_vel.npy')
         
         #Integrate the velocities to 
         spectral_func_list = np.empty([n_bootstraps, nib._vdf.calc_day.max(), len(nib._dm.Er_range)]) 
