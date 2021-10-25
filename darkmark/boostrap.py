@@ -163,5 +163,5 @@ def bootstrap_rate(nib, samp_num, results_path, boostrap, n_bootstraps=0, verbos
                 daily_rate = spectral_func(nib,F_qH,day, nib._vdf.v_E[day],vmin,speed_dist[day],norm_const, cf_ls = True)
                 year_rate[day] = daily_rate *((1./u.d)*(1./u.kg)*(1./u.keV)).to(dru)
             spectral_func_list = year_rate
-        np.save(str(results_path)+'Sample_'+str(samp)+'/spectral_function.npy', spectral_func_list )
+        np.save(str(results_path)+'/Velocity_Results/Sample_'+str(samp)+'/spectral_function.npy', spectral_func_list )
     return 1
