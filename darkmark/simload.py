@@ -40,6 +40,8 @@ def import_sim(file_path):
 
     """
     s = pn.load(file_path)
+    s['pos'].units = 'kpc h**-1'
+    s['vel'].units = 'km s**-1'
     s.physical_units()
     target = s
     print("This Galaxy Has a RedShift of z = ", round(s.properties['Redshift']))
@@ -91,11 +93,9 @@ def apply_centre(target, **v_cen):
 
     """
     v_cen = np.array([-154.47322, 160.85855, 106.82710])
+    p_cen = np.array([38711.76113, 47665.07165, 46817.26477])
     # Set FaceOn and Center
-    pn.analysis.angmom.faceon(target, cen_size='1 kpc', disk_size='50 kpc', 
-                              move_all=True, vcen=(v_cen[0],v_cen[1], v_cen[2]))
-
-
+    pn.analysis.angmom.faceon(target, cen_size='1 kpc', disk_size='50 kpc', vcen = (-154.47322, 160.85855, 106.82710), move_all=True)
 def apply_smth(latte, s, target):
     """
     Apply Smoothing Lengths and Centre
