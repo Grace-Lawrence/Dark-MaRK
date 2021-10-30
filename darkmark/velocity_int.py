@@ -12,7 +12,7 @@ from scipy.interpolate import InterpolatedUnivariateSpline
 from darkmark.annual_mod_fits import fit_curve
 from darkmark import dru, tru
 
-__all__ = [ "annual_mod", "find_amplitude"]
+__all__ = [ "annual_mod", "find_amplitude", "find_DAMA_fit"]
 
 
 def Qf_Ge(nib,e_val):
@@ -155,3 +155,10 @@ def find_amplitude(nib, am_array, fit):
     params, params_covariance = fit_curve(nib, am_array, 'A')
     amp = params[1]
     return amp
+
+
+def find_DAMA_fit(nib, am_array, fit):
+    if fit:
+        params, params_covariance = fit_curve(nib, am_array, 'S')
+    
+    return params

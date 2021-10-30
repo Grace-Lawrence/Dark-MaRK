@@ -11,7 +11,7 @@ import numpy as np
 from scipy import optimize
 import unicodedata
 
-__all__ = ["fit_curve"]
+__all__ = ["fit_func_S", "fit_curve"]
 
 def fit_func_S(t, S_0, S_m,t0):
     """
@@ -81,7 +81,7 @@ def fit_curve(nib, y_data, fit, verbose = False):
         The associated errors for params.
 
     """
-    x_data = np.linspace(0.001,nib._vdf.calc_day,nib._vdf.calc_day,dtype=int)
+    x_data = np.linspace(0.001,365,365,dtype=int)
     if fit == 'A': #Subtracting the median from data to examine the residuals
         y_data = np.subtract(y_data,np.mean(y_data))
         params, params_covariance = optimize.curve_fit(fit_func_A, x_data, y_data, 
