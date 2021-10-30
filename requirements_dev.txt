@@ -1,3 +1,4 @@
 wget >=1.21.2
+numexpr >= 2.7.3
 -e .
 check-manifest
