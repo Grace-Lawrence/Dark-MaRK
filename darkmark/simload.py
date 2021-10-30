@@ -158,8 +158,9 @@ def visualize_dm(target,results_path):
     pn.plot.image(target.dm, width='60 kpc', cmap=plt.cm.Greys,
                       resolution=2500, units='Msol kpc^-2', qtytitle=r'$\Sigma$')
     
-    plt.savefig(results_path+'DarkMaRK_results/DM_visualization.pdf')
 
+    plt.savefig(results_path+'DarkMaRK_results/DM_visualization.png')
+    
 
 def visualize_gas(target,results_path):
     """
