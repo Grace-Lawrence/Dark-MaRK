@@ -12,7 +12,7 @@ Where :math:`\sigma_p` is the interaction cross-section of the dark matter parti
   
 Halo Model and Cosmology
 --------------------------
-The cosmology and halo model being used have a large impact on the detection rate as they inform the speed distribution of dark matter. The dark matter cosmology used helps to define the large scale structure, or 'clumpiness' of dark matter while the hierachichal assembly history of halos may give rise to dark matter substructures like stellar streams, or debris flows. These features can cause increases in the local dark matter density, in the speed distribution of dark matter, and subsequently strongly impact on the detection rate. Dark Mark assumes :math:`\Lambda CDM`.  
+The cosmology and halo model being used have a large impact on the detection rate as they inform the speed distribution of dark matter. The dark matter cosmology used helps to define the large scale structure, or 'clumpiness' of dark matter while the hierachichal assembly history of halos may give rise to dark matter substructures like stellar streams, or debris flows. These features can cause increases in the local dark matter density, in the speed distribution of dark matter, and subsequently strongly impact on the detection rate. Dark-MaRK assumes :math:`\Lambda CDM`.  
 
 
 Velocity Distribution
@@ -27,7 +27,7 @@ The velocity distribution needs to undergo a transformation from the galactocent
 .. math::
     f_{geo}(\vec{v}, t) = {f}_{gal}(\vec{v}+\vec{v}_{Earth}(t))
 
-Where :math:`v_E` is the velocity of the Earth. Dark Mark defines :math:`v_E` via Astropy_'s Astronomical Coordinate Systems sub-package. 
+Where :math:`v_E` is the velocity of the Earth. Dark-MaRK defines :math:`v_E` via Astropy_'s Astronomical Coordinate Systems sub-package. 
 
 Event Rate
 --------------
@@ -37,7 +37,7 @@ The event rate is then performed as an integral over the velocity distribution, 
     \frac{dR}{dE_R} = \frac{2\, N_0 \, n_0 \, \sigma}{A \, k \, M_D \, r} \int_{v_{min}}^{v_{max}} \frac{1}{v} \, f_{geo}(\vec{v},\vec{v}_E) \, d^3\vec{v}.
 
 
-When implementing numerical simulations, or arrays of velocities instead of analytical forms, the integral can be transformed into a model independent summation over the velocities. This summation form is implemented in Dark Mark.
+When implementing numerical simulations, or arrays of velocities instead of analytical forms, the integral can be transformed into a model independent summation over the velocities. This summation form is implemented in Dark-MaRK.
 
 .. _Green2012: https://arxiv.org/abs/1112.0524
 .. _Astropy: https://www.astropy.org/
