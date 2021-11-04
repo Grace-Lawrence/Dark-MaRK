@@ -29,7 +29,7 @@ def simtohel(nib,pos, vel, galaxy, results_path, samp_num,earth_galacto):
         Array of x,y,z positions associated with the sampled particles, in the galactocentric reference frame.
     vel : Array of floats
         Array of x,y,z velocities associated with the sampled particles, in the galactocentric reference frame.
-    ggalaxy : String
+    galaxy : String
         Options to specify the galaxy as being analogous to the Milky Way, which will
         mean that the function will either boost or restrict velocities to match 
         oberved velocity values for the Milky Way.  
