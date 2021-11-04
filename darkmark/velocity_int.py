@@ -158,6 +158,19 @@ def find_amplitude(nib, am_array, fit):
 
 
 def find_DAMA_fit(nib, am_array, fit):
+    """
+    Returns fit values for S0, Sm, t0, by fitting the annual modulation curves.
+    ----------
+    nib : Class
+        Function class containing both astrophysical and detector objects.
+    am_array : Array of floats.
+        Spectral rate function arrays to integrate over.
+    fit : Str, optional. 
+    Returns
+    -------
+    params : Array of floats. 
+        Fit values with associated errors.
+    """
     if fit:
         params, params_covariance = fit_curve(nib, am_array, 'S')
     
