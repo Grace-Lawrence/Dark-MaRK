@@ -124,7 +124,6 @@ def Earth_peculiar_motion(nib):
                                                representation_type = 'cartesian', 
                                                differential_type = 'cartesian')
     earth_galacto = earth_bary.transform_to(coord.Galactocentric())
-    print(f' Testing the concept; {earth_galacto.v_x}')
     return earth_galacto
 
 
@@ -170,42 +169,12 @@ def sample_dm_solcirc(nib,sample_coords, target, theta_ang, galaxy,results_path,
         
         solar_sphere=s[pn.filt.Sphere(radius= 1.,
                                       cen=tuple(sample_coords[j, :].value))] #take spherical samples at the specified coordinates around the solar circle.
-        print(f'SAMPLE {j+1}')
         solar_sphere.rotate_z(-(theta_ang[j].to(u.degree).value+180)) #Rotate the sample back to the Earth's co-ordinate.
         
         tmp_pos_dm = solar_sphere.dm['pos'].in_units('kpc').view(type=np.ndarray) #take the positional component of the dark matter
         tmp_vel_dm = solar_sphere.dm['vel'].in_units('km s**-1').view(type=np.ndarray) #take the velocity component of the dark matter
-
-        # if galaxy == 'milkyway':
-        #     #Boost m12f simulation to the Milky Way's v_circ
-        #     tmp_vel_dm[:,0] -= 1.27 #9  
-        #     tmp_vel_dm[:,1] -= 23.29 #11 
-        #     tmp_vel_dm[:,2] += 2.31 #9  
         
         #Transform velocities from Galactocentric -> Geo
         speed_galacto, geo_array, speed_geo_avg = simtohel(nib,tmp_pos_dm,tmp_vel_dm,'milkyway', results_path, j+1, earth_galacto)
-            
-    #     if find_boost == 'True':
-    #         if j == 0:
-    #             total_particle_sample_x = geo_array[0,:,:]
-    #             total_particle_sample_y = geo_array[1,:,:]
-    #             total_particle_sample_z = geo_array[2,:,:]
-    #         else: 
-    #             total_particle_sample_x = np.hstack((total_particle_sample_x,geo_array[0,:]))
-    #             total_particle_sample_y = np.hstack((total_particle_sample_y,geo_array[1,:]))
-    #             total_particle_sample_z = np.hstack((total_particle_sample_z,geo_array[2,:]))
-
-    # #test_simtohel() 
-    # if find_boost == 'True' :
-    #     total_particle_sample_x_avg = np.sum(total_particle_sample_x, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_x, axis=1)
-    #     total_particle_sample_y_avg = np.sum(total_particle_sample_y, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_y,axis=1)
-    #     total_particle_sample_z_avg = np.sum(total_particle_sample_z, axis=1)/len(total_particle_sample_x[0,:])#np.average(total_particle_sample_z,axis=1)
-    #     X_Boost = np.mean((total_particle_sample_x_avg-earth_galacto.v_x.value))
-    #     Y_Boost = np.mean(total_particle_sample_y_avg-earth_galacto.v_y.value)
-    #     Z_Boost = np.mean(total_particle_sample_z_avg-earth_galacto.v_z.value)
-        
-
-
-    
     return speed_galacto, geo_array
 
