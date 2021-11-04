@@ -1,6 +1,6 @@
 Methods
 ===============
-The expected signal in a direct detection experiment relies on two classes of input parameters, Astrophysical and, Particle. It's important to correctly model both in order to create realistic expectactions for experiments given the galactic dark matter environment, the dark matter particle model, and the type of detector being used. 
+The expected signal in a direct detection experiment relies on two classes of input parameters; Astrophysical and Particle. It's important to correctly model both in order to create realistic expectactions for experiments given the galactic dark matter environment, the dark matter particle model, and the type of detector being used. 
 
 The following equation (Green2012_) is the standard form of the differential rate equation, which expresses the expected detection rate of dark matter in units of counts per day, per kilogram of detector, per kev (energy);
 
