@@ -1,4 +1,4 @@
-*Dark Mark* is an open source python 3 package designed to generate bespoke predictions for dark matter direct detectors. *Dark Mark* allows users to vary three key aspects of dark matter direct detection - the detector model, the dark matter model and the halo model of the galaxy.
+*Dark-MaRK* is an open source Python 3 package designed to generate bespoke predictions for dark matter direct detectors. *Dark-MaRK* allows users to vary three key aspects of dark matter direct detection - the detector model, the dark matter model, and the halo model of the galaxy.
 
 Documentation
 --------------
@@ -6,7 +6,7 @@ Further information about the package and it's methods is available via https://
 
 Installation
 ------------
-You can install the latest development version of *Dark Mark* by cloning 
+You can install the latest development version of *Dark-MaRK* by cloning 
 this repository::
     
     git clone https://github.com/Grace-Lawrence/Dark-MaRK.git
