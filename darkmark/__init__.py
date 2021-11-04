@@ -16,7 +16,7 @@ from . import dm_detector_class
 from . import nat_unit
 from . import velocity_int
 
-__name__ = "Dark MAtter Rate Kalculator (Dark MaRK)"
+__name__ = "Dark Matter Rate Kalculator (Dark MaRK)"
 __author__ = "Grace Lawrence (@Grace-Lawrence)"
 __all__ = ['annual_mod_fits, simload', 'profiles', 'framewrap',
            'sampling_transformations','dm_detector_class',
