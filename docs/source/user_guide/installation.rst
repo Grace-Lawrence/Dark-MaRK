@@ -12,8 +12,8 @@ You can install the latest development version of Dark-MaRK by cloning this repo
     pip install .
 
 
-Requirements: 
-______________
+Requirements 
+--------------
 
 A list of the required packages can be found in requirements.txt. These will automatically be checked/installed/updated upon installation of the package, at the required version. Below is a list of the required packages:
 
