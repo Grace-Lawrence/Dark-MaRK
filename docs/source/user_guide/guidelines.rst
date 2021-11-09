@@ -5,7 +5,7 @@ Guidelines
 
 Reference
 ---------
-If you use the Dark Mark package in your research, please acknowledge its role by including the following ackowledgement. 
+If you use the Dark Mark package in your research, please acknowledge its role by including the following acknowledgement. 
 "Some of the results of this paper have been derived using the *Dark-MaRK* package", or similar.
 
 Issues and Contributing
