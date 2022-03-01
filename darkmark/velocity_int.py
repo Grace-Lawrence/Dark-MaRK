@@ -65,7 +65,7 @@ def qf(nib, e_val):
     """
     if nib._det_var == 'Na':
         qf = 0.3 
-    elif nib._det_var == 'Iod':
+    elif nib._det_var == 'I':
         qf = 0.09
     elif nib._det_var == 'Ge':
         qf = Qf_Ge(nib,e_val)

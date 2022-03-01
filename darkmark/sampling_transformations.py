@@ -77,6 +77,7 @@ def calc_real_uE_pE(calc_day,comp):
         The velocity of the Earth in Galactocentric co-ordinates.
 
     """
+    
     earth_speed = np.empty([len(calc_day)])
     earth_pos = np.empty([len(calc_day)])
     for day in range(len(calc_day)):
@@ -163,6 +164,7 @@ def sample_dm_solcirc(nib,sample_coords, target, theta_ang, galaxy,results_path,
     s = target
     earth_galacto = Earth_peculiar_motion(nib)
     earth_speed = np.sqrt((earth_galacto.v_x.value)**2+(earth_galacto.v_y.value)**2+(earth_galacto.v_z.value)**2)
+    earth_velocity = np.array([earth_speed[0], earth_speed[1,]]
     for j in range(0, len(sample_coords)):
         if not os.path.exists(str(results_path)+'Velocity_Results/Sample_'+str(j+1)):
             os.makedirs(str(results_path)+'Velocity_Results/Sample_'+str(j+1))
