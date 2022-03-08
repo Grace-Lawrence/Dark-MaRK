@@ -2,7 +2,7 @@ astropy>=4.0.1
 cmasher>=1.6.2
 matplotlib>=2.2.4
 numpy>=1.16.0
-pynbody>=1.0.2
+pynbody<=1.0.4
 scipy>=1.5.2
 mendeleev>=0.6.0
 
